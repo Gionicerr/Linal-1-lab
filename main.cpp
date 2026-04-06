@@ -160,7 +160,7 @@ double ms(Clock::time_point t){
 }
 
 void test_1(){
-    std::cout<<"\n=== 4.1 Сравнение времени решения одной системы ===\n";
+    std::cout<<"\nСравнение времени решения одной системы\n";
     std::cout<<std::setw(5)<<"n";
     std::cout<<std::setw(18)<<"Gauss(no pivot)";
     std::cout<<std::setw(18)<<"Gauss(pivot)";
