@@ -89,7 +89,11 @@ Vector gauss_no_pivot(Matrix A, Vector b){
     }
     return x;
 }
-
+```
+m = Aⱼᵢ / Aᵢᵢ
+Aⱼₖ ← Aⱼₖ − m·Aᵢₖ
+bⱼ ← bⱼ − m·bᵢ
+```
 Vector gauss_partial_pivot(Matrix A, Vector b){
     int n = A.size();
     for(int i = 0; i < n; i++){
@@ -112,7 +116,9 @@ Vector gauss_partial_pivot(Matrix A, Vector b){
     }
     return x;
 }
-
+```
+xᵢ = (bᵢ − Σⱼ₌ᵢ₊₁ⁿ Aᵢⱼ·xⱼ) / Aᵢᵢ
+```
 struct LU{ Matrix L; Matrix U; };
 LU lu_decompose(const Matrix& A){
     int n = A.size();
@@ -134,7 +140,10 @@ LU lu_decompose(const Matrix& A){
     }
     return {L, U};
 }
-
+```
+Uᵢₖ = Aᵢₖ − Σⱼ₌₀ⁱ⁻¹ Lᵢⱼ·Uⱼₖ (k ≥ i)
+Lₖᵢ = (Aₖᵢ − Σⱼ₌₀ⁱ⁻¹ Lₖⱼ·Uⱼᵢ) / Uᵢᵢ (k > i)
+```
 Vector forward_sub(const Matrix& L, const Vector& b){
     int n = L.size();
     Vector y(n);
@@ -145,7 +154,9 @@ Vector forward_sub(const Matrix& L, const Vector& b){
     }
     return y;
 }
-
+```
+yᵢ = (bᵢ − Σⱼ₌₀ⁱ⁻¹ Lᵢⱼ·yⱼ) / Lᵢᵢ
+```
 Vector backward_sub(const Matrix& U, const Vector& y){
     int n = U.size();
     Vector x(n);
@@ -157,6 +168,8 @@ Vector backward_sub(const Matrix& U, const Vector& y){
     return x;
 }
 ```
+xᵢ = (yᵢ − Σⱼ₌ᵢ₊₁ⁿ⁻¹ Uᵢⱼ·xⱼ) / Uᵢᵢ
+
 Два Гаусса, LU с двумя ходами.
 
 ```
